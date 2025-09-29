@@ -48,11 +48,11 @@ export async function submitSurvey(surveyData: SurveyData): Promise<{ success: b
 
     const surveyRecord: Omit<UserSurvey, 'id' | 'created_at' | 'updated_at'> = {
       user_id: userId,
-      age: surveyData.age || null,
-      gender: surveyData.gender || null,
+      age: surveyData.age || undefined,
+      gender: surveyData.gender || undefined,
       city_size: surveyData.citySize,
       shopping_frequency: surveyData.shoppingFrequency,
-      preferred_brand: surveyData.preferredBrand || null,
+      preferred_brand: surveyData.preferredBrand || undefined,
       profession: surveyData.profession,
     };
 

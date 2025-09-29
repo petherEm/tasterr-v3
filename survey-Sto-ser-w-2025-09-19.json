@@ -1,0 +1,69 @@
+{
+  "survey": {
+    "id": "da75989a-2309-48a8-934f-17a87bfeb953",
+    "title": "Sto serów",
+    "description": "Znowu sery",
+    "introduction": "Zapraszamy do świata serów",
+    "status": "published",
+    "target_audience": "all",
+    "created_at": "2025-09-18T10:43:48.851988+00:00",
+    "published_at": "2025-09-18T10:43:51.529+00:00",
+    "expires_at": null,
+    "questions": [
+      {
+        "id": "a1853337-f199-4aa2-b99e-0f12314be30d",
+        "question_text": "Powiedz nam coś o sobie",
+        "question_subtitle": "",
+        "question_type": "input",
+        "options": "[]",
+        "order_index": 1
+      },
+      {
+        "id": "063b3a28-4807-42b4-ae1c-32cb63e03f53",
+        "question_text": "Jakim jezdzisz autem?",
+        "question_subtitle": "",
+        "question_type": "input",
+        "options": "[]",
+        "order_index": 2
+      }
+    ]
+  },
+  "responses": [
+    {
+      "id": "641aacd8-260c-4809-affa-d98786a66416",
+      "user_id": "user_32ERy2hk1beLLxo5GjRHgaEsLqg",
+      "response_data": {
+        "question_a1853337-f199-4aa2-b99e-0f12314be30d": "uwielbiam sie zajadac serkami typu brie itd",
+        "question_a1853337-f199-4aa2-b99e-0f12314be30d_original": "lubie sery i stopy",
+        "question_a1853337-f199-4aa2-b99e-0f12314be30d_ai_retries": 1,
+        "question_a1853337-f199-4aa2-b99e-0f12314be30d_ai_assisted": true
+      },
+      "completed_at": "2025-09-19T08:43:06.360452+00:00",
+      "user_profile": {
+        "age": "41",
+        "gender": "female",
+        "city_size": "medium-city",
+        "shopping_frequency": "weekly",
+        "preferred_brand": "Auchan",
+        "profession": "footballer",
+        "profile_created_at": "2025-09-04T11:15:23.994147+00:00",
+        "profile_updated_at": "2025-09-06T05:08:09.759033+00:00"
+      },
+      "metadata": {
+        "response_count": 1,
+        "survey_completion_rate": 1,
+        "export_timestamp": "2025-09-19T08:45:22.865Z",
+        "export_settings": {
+          "include_profiles": true,
+          "include_metadata": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total_responses": 1,
+    "export_timestamp": "2025-09-19T08:45:22.865Z",
+    "includes_user_profiles": true,
+    "includes_metadata": true
+  }
+}

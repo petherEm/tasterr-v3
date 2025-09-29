@@ -560,11 +560,11 @@ export async function getSurveyAnalytics(surveyId: string) {
     const analytics = {
       total_responses: responses?.length || 0,
       demographics: {
-        age_groups: {},
-        gender: {},
-        city_size: {},
-        shopping_frequency: {},
-        profession: {}
+        age_groups: {} as Record<string, number>,
+        gender: {} as Record<string, number>,
+        city_size: {} as Record<string, number>,
+        shopping_frequency: {} as Record<string, number>,
+        profession: {} as Record<string, number>
       },
       response_quality: {
         avg_completion_time: 0, // Calculate if you have timing data

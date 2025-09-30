@@ -1774,16 +1774,16 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
 
           {/* Chat Area */}
           <div className="flex-1 overflow-hidden">
-            <div className="max-w-4xl mx-auto h-full p-6">
+            <div className="max-w-4xl mx-auto h-full p-3 md:p-6">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 h-full flex flex-col"
+                className="bg-white/80 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl border border-gray-200/50 h-full flex flex-col"
               >
                 {/* Chat Messages */}
                 <div
                   ref={chatContainerRef}
-                  className="flex-1 overflow-y-auto p-8 space-y-6"
+                  className="flex-1 overflow-y-auto p-3 md:p-6 space-y-4 md:space-y-6"
                 >
                   <AnimatePresence mode="popLayout">
                     {chatMessages.map((message) => (
@@ -1793,7 +1793,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className={`flex items-start gap-4 ${
+                        className={`flex items-start gap-2 md:gap-3 ${
                           message.role === "user"
                             ? "flex-row-reverse"
                             : "flex-row"
@@ -1803,31 +1803,31 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
                           transition={{ delay: 0.1 }}
-                          className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${
+                          className={`w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${
                             message.role === "user"
                               ? "bg-gradient-to-br from-indigo-500 to-purple-600"
                               : "bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-gray-300"
                           }`}
                         >
                           {message.role === "user" ? (
-                            <User className="w-6 h-6 text-white" />
+                            <User className="w-4 h-4 md:w-5 md:h-5 text-white" />
                           ) : (
-                            <Bot className="w-6 h-6 text-gray-600" />
+                            <Bot className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
                           )}
                         </motion.div>
 
                         <div
-                          className={`max-w-[75%] rounded-3xl px-6 py-4 shadow-lg ${
+                          className={`max-w-[85%] md:max-w-[75%] rounded-2xl md:rounded-3xl px-3 py-2.5 md:px-5 md:py-3.5 shadow-lg ${
                             message.role === "user"
                               ? "bg-gradient-to-br from-indigo-500 to-purple-600 text-white"
                               : "bg-white border border-gray-200 text-gray-800"
                           }`}
                         >
-                          <p className="text-base leading-relaxed whitespace-pre-wrap">
+                          <p className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">
                             {message.content}
                           </p>
                           <div
-                            className={`text-sm mt-3 ${
+                            className={`text-xs md:text-sm mt-1.5 md:mt-2 ${
                               message.role === "user"
                                 ? "text-indigo-100"
                                 : "text-gray-500"
@@ -1848,24 +1848,24 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="flex items-start gap-4"
+                      className="flex items-start gap-2 md:gap-3"
                     >
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-gray-300 flex items-center justify-center shrink-0 shadow-lg">
-                        <Bot className="w-6 h-6 text-gray-600" />
+                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-gray-300 flex items-center justify-center shrink-0 shadow-lg">
+                        <Bot className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
                       </div>
-                      <div className="bg-white border border-gray-200 rounded-3xl px-6 py-4 shadow-lg">
-                        <div className="flex gap-2">
+                      <div className="bg-white border border-gray-200 rounded-2xl md:rounded-3xl px-4 py-3 md:px-5 md:py-3.5 shadow-lg">
+                        <div className="flex gap-1.5">
                           <motion.div
-                            className="w-3 h-3 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
-                            animate={{ y: [0, -8, 0] }}
+                            className="w-2 h-2 md:w-2.5 md:h-2.5 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
+                            animate={{ y: [0, -6, 0] }}
                             transition={{
                               repeat: Number.POSITIVE_INFINITY,
                               duration: 0.8,
                             }}
                           />
                           <motion.div
-                            className="w-3 h-3 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
-                            animate={{ y: [0, -8, 0] }}
+                            className="w-2 h-2 md:w-2.5 md:h-2.5 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
+                            animate={{ y: [0, -6, 0] }}
                             transition={{
                               repeat: Number.POSITIVE_INFINITY,
                               duration: 0.8,
@@ -1873,8 +1873,8 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                             }}
                           />
                           <motion.div
-                            className="w-3 h-3 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
-                            animate={{ y: [0, -8, 0] }}
+                            className="w-2 h-2 md:w-2.5 md:h-2.5 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
+                            animate={{ y: [0, -6, 0] }}
                             transition={{
                               repeat: Number.POSITIVE_INFINITY,
                               duration: 0.8,
@@ -1888,14 +1888,14 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                 </div>
 
                 {/* Enhanced Test Input Area */}
-                <div className="border-t border-gray-200/50 p-6 bg-gray-50/50">
-                  <div className="flex gap-4">
+                <div className="border-t border-gray-200/50 p-3 md:p-6 bg-gray-50/50">
+                  <div className="flex gap-2 md:gap-3">
                     <input
                       type="text"
                       value={testQuestion}
                       onChange={(e) => setTestQuestion(e.target.value)}
-                      placeholder="Ask me anything about the survey, or type 'start survey' to begin..."
-                      className="flex-1 px-6 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white shadow-sm text-base transition-all duration-200"
+                      placeholder="Ask me anything..."
+                      className="flex-1 px-3 py-2.5 md:px-5 md:py-3.5 border border-gray-300 rounded-xl md:rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white shadow-sm text-sm md:text-base transition-all duration-200"
                       onKeyPress={(e) => {
                         if (e.key === "Enter" && !isTyping) {
                           handleTestQuestion();
@@ -1906,21 +1906,22 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                     <Button
                       onClick={handleTestQuestion}
                       disabled={!testQuestion.trim() || isTyping}
-                      className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                      className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-4 py-2.5 md:px-6 md:py-3.5 rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                     >
-                      <Send className="w-5 h-5" />
+                      <Send className="w-4 h-4 md:w-5 md:h-5" />
                     </Button>
                   </div>
-                  <div className="mt-4 text-center">
+                  <div className="mt-3 md:mt-4 text-center">
                     <Button
                       variant="outline"
                       onClick={() => {
                         setShowTestChat(false);
                         setTestQuestion("");
                       }}
-                      className="text-base border-2 border-gray-300 hover:border-indigo-300 hover:bg-indigo-50 rounded-2xl px-6 py-3 transition-all duration-200"
+                      className="text-sm md:text-base border-2 border-gray-300 hover:border-indigo-300 hover:bg-indigo-50 rounded-xl md:rounded-2xl px-4 py-2 md:px-6 md:py-3 transition-all duration-200"
                     >
-                      Pomiń Test i Rozpocznij Ankietę
+                      <span className="hidden sm:inline">Pomiń Test i Rozpocznij Ankietę</span>
+                      <span className="sm:hidden">Rozpocznij Ankietę</span>
                     </Button>
                   </div>
                 </div>
@@ -2038,7 +2039,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
           <div className="flex-1 overflow-hidden flex flex-col max-w-4xl mx-auto w-full">
             <div
               ref={chatContainerRef}
-              className="flex-1 overflow-y-auto p-6 space-y-8"
+              className="flex-1 overflow-y-auto p-3 md:p-6 space-y-4 md:space-y-6"
               style={{ scrollBehavior: "smooth" }}
             >
               <AnimatePresence mode="popLayout">
@@ -2054,7 +2055,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                     }`}
                   >
                     <div
-                      className={`flex items-start gap-4 max-w-[85%] ${
+                      className={`flex items-start gap-2 md:gap-3 max-w-[90%] md:max-w-[85%] ${
                         message.role === "user" ? "flex-row-reverse" : ""
                       }`}
                     >
@@ -2062,16 +2063,16 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                         initial={{ scale: 0, rotate: -180 }}
                         animate={{ scale: 1, rotate: 0 }}
                         transition={{ delay: 0.2, type: "spring" }}
-                        className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-xl ${
+                        className={`w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${
                           message.role === "user"
                             ? "bg-gradient-to-br from-indigo-500 to-purple-600"
                             : "bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200"
                         }`}
                       >
                         {message.role === "user" ? (
-                          <User className="w-6 h-6 text-white" />
+                          <User className="w-4 h-4 md:w-5 md:h-5 text-white" />
                         ) : (
-                          <Bot className="w-6 h-6 text-indigo-500" />
+                          <Bot className="w-4 h-4 md:w-5 md:h-5 text-indigo-500" />
                         )}
                       </motion.div>
 
@@ -2083,7 +2084,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                           }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.3 }}
-                          className={`rounded-3xl px-6 py-4 shadow-xl ${
+                          className={`rounded-2xl md:rounded-3xl px-3 py-2.5 md:px-5 md:py-3.5 shadow-lg ${
                             message.role === "user"
                               ? "bg-gradient-to-br from-indigo-500 to-purple-600 text-white"
                               : message.isQuestion
@@ -2096,10 +2097,10 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                               initial={{ opacity: 0, y: -10 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: 0.4 }}
-                              className="flex items-center gap-3 mb-4"
+                              className="flex items-center gap-2 mb-2 md:mb-3"
                             >
-                              <div className="w-3 h-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full animate-pulse"></div>
-                              <span className="text-sm font-bold text-indigo-600 uppercase tracking-wider">
+                              <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full animate-pulse"></div>
+                              <span className="text-xs md:text-sm font-bold text-indigo-600 uppercase tracking-wider">
                                 Question {(message.questionIndex || 0) + 1}
                               </span>
                             </motion.div>
@@ -2108,8 +2109,8 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                           <p
                             className={`leading-relaxed ${
                               message.isQuestion
-                                ? "font-semibold text-lg"
-                                : "text-base"
+                                ? "font-semibold text-base md:text-lg"
+                                : "text-sm md:text-base"
                             }`}
                           >
                             {message.content}
@@ -2256,7 +2257,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                         </motion.div>
 
                         <div
-                          className={`text-sm text-gray-400 mt-3 px-3 ${
+                          className={`text-xs md:text-sm text-gray-400 mt-1.5 md:mt-2 px-1 ${
                             message.role === "user" ? "text-right" : "text-left"
                           }`}
                         >
@@ -2277,23 +2278,23 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                     animate={{ opacity: 1, y: 0 }}
                     className="flex justify-start"
                   >
-                    <div className="flex items-start gap-4 max-w-[85%]">
-                      <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200 shadow-xl shrink-0">
-                        <Bot className="w-6 h-6 text-indigo-500" />
+                    <div className="flex items-start gap-2 md:gap-3 max-w-[90%] md:max-w-[85%]">
+                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl flex items-center justify-center bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200 shadow-lg shrink-0">
+                        <Bot className="w-4 h-4 md:w-5 md:h-5 text-indigo-500" />
                       </div>
-                      <div className="rounded-3xl px-6 py-4 bg-white border border-gray-200 shadow-xl">
-                        <div className="flex gap-2">
+                      <div className="rounded-2xl md:rounded-3xl px-4 py-3 md:px-5 md:py-3.5 bg-white border border-gray-200 shadow-lg">
+                        <div className="flex gap-1.5">
                           <motion.div
-                            className="w-3 h-3 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
-                            animate={{ y: [0, -8, 0] }}
+                            className="w-2 h-2 md:w-2.5 md:h-2.5 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
+                            animate={{ y: [0, -6, 0] }}
                             transition={{
                               repeat: Number.POSITIVE_INFINITY,
                               duration: 0.8,
                             }}
                           />
                           <motion.div
-                            className="w-3 h-3 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
-                            animate={{ y: [0, -8, 0] }}
+                            className="w-2 h-2 md:w-2.5 md:h-2.5 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
+                            animate={{ y: [0, -6, 0] }}
                             transition={{
                               repeat: Number.POSITIVE_INFINITY,
                               duration: 0.8,
@@ -2301,8 +2302,8 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                             }}
                           />
                           <motion.div
-                            className="w-3 h-3 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
-                            animate={{ y: [0, -8, 0] }}
+                            className="w-2 h-2 md:w-2.5 md:h-2.5 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
+                            animate={{ y: [0, -6, 0] }}
                             transition={{
                               repeat: Number.POSITIVE_INFINITY,
                               duration: 0.8,
@@ -2324,14 +2325,14 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-white/95 backdrop-blur-xl border-t border-gray-200/50 shadow-2xl"
               >
-                <div className="max-w-4xl mx-auto p-6">
+                <div className="max-w-4xl mx-auto p-3 md:p-6">
                   <form
                     onSubmit={form.handleSubmit(handleAnswerSubmit)}
-                    className="space-y-4"
+                    className="space-y-3 md:space-y-4"
                   >
                     {/* Enhanced input area with better styling */}
-                    <div className="bg-white rounded-2xl border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200">
-                      <div className="p-6 max-h-80 overflow-y-auto">
+                    <div className="bg-white rounded-xl md:rounded-2xl border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200">
+                      <div className="p-3 md:p-5 max-h-80 overflow-y-auto">
                         {renderQuestionInput()}
                       </div>
                     </div>
@@ -2343,13 +2344,13 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                         <motion.div
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6 shadow-lg"
+                          className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl md:rounded-2xl p-3 md:p-5 shadow-lg"
                         >
-                          <p className="text-base text-blue-800 mb-4 font-semibold flex items-center gap-2">
-                            <Bot className="w-5 h-5" />
+                          <p className="text-sm md:text-base text-blue-800 mb-3 md:mb-4 font-semibold flex items-center gap-2">
+                            <Bot className="w-4 h-4 md:w-5 md:h-5" />
                             What would you like to do next?
                           </p>
-                          <div className="flex gap-4">
+                          <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
                             <Button
                               type="button"
                               onClick={handleContinueUploading}
@@ -2374,8 +2375,8 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                       )}
 
                     {/* Enhanced action buttons */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex gap-3">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex gap-2 md:gap-3">
                         {/* Skip option for image uploads after first image */}
                         {survey.questions[currentStep].question_type ===
                           "image_upload_comment" &&
@@ -2418,16 +2419,17 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                           )}
                       </div>
 
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 md:gap-3">
                         {/* Enhanced validation status */}
                         {isAnswerValid() && !showImageUploadChoice && (
                           <motion.span
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="text-base text-green-600 flex items-center gap-2 bg-green-50 px-3 py-2 rounded-xl border border-green-200"
+                            className="hidden sm:flex text-sm md:text-base text-green-600 items-center gap-2 bg-green-50 px-2 md:px-3 py-1.5 md:py-2 rounded-lg md:rounded-xl border border-green-200"
                           >
-                            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                            Ready to continue
+                            <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-green-500 rounded-full animate-pulse"></div>
+                            <span className="hidden md:inline">Ready to continue</span>
+                            <span className="md:hidden">Ready</span>
                           </motion.span>
                         )}
 
@@ -2436,17 +2438,18 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                           <Button
                             type="submit"
                             disabled={!isAnswerValid() || isSubmitting}
-                            className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+                            className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-4 py-2.5 md:px-8 md:py-4 rounded-xl md:rounded-2xl shadow-lg md:shadow-xl hover:shadow-xl md:hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 text-sm md:text-base"
                           >
                             {isSubmitting ? (
                               <>
-                                <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                                Wysyłanie...
+                                <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin mr-1.5 md:mr-2" />
+                                <span className="hidden sm:inline">Wysyłanie...</span>
+                                <span className="sm:hidden">...</span>
                               </>
                             ) : (
                               <>
-                                <Send className="w-5 h-5 mr-2" />
-                                Continue
+                                <Send className="w-4 h-4 md:w-5 md:h-5 mr-1.5 md:mr-2" />
+                                <span>Continue</span>
                               </>
                             )}
                           </Button>
@@ -2481,15 +2484,15 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
             open={showImageUploadModal}
             onOpenChange={setShowImageUploadModal}
           >
-            <DialogContent className="max-w-4xl w-full max-h-[90vh] p-0 bg-white border-0 rounded-2xl overflow-hidden">
-              <DialogHeader className="p-6 pb-0">
+            <DialogContent className="max-w-4xl w-full max-h-[90vh] p-0 bg-white border-0 rounded-2xl overflow-hidden flex flex-col">
+              <DialogHeader className="p-6 pb-4 border-b border-gray-100 shrink-0">
                 <DialogTitle className="text-xl font-bold text-gray-800 flex items-center gap-2">
                   <Camera className="w-6 h-6 text-indigo-500" />
                   Upload & Comment on Images
                 </DialogTitle>
               </DialogHeader>
 
-              <div className="p-6 pt-4 max-h-[calc(90vh-80px)] overflow-y-auto">
+              <div className="flex-1 overflow-y-auto p-6">
                 <UserImageUploadQuestion
                   question={survey.questions[currentStep]}
                   value={form.watch("currentAnswer") || []}
@@ -2521,22 +2524,21 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                 />
               </div>
 
-              <div className="p-6 pt-0 border-t border-gray-100">
+              <div className="p-6 pt-4 border-t border-gray-100 bg-white shrink-0">
                 <div className="flex justify-between items-center">
-                  <Button
-                    variant="outline"
-                    onClick={() => setShowImageUploadModal(false)}
-                    className="px-6"
-                  >
-                    Zamknij
-                  </Button>
+                  <div className="text-sm text-gray-600">
+                    {Array.isArray(form.watch("currentAnswer")) &&
+                    form.watch("currentAnswer").length > 0
+                      ? `${form.watch("currentAnswer").length} zdjęcie/ć gotowe`
+                      : ""}
+                  </div>
 
-                  {Array.isArray(form.watch("currentAnswer")) &&
-                    form.watch("currentAnswer").length > 0 && (
-                      <div className="text-sm text-gray-600">
-                        {form.watch("currentAnswer").length} zdjęcie/ć gotowe
-                      </div>
-                    )}
+                  <Button
+                    onClick={() => setShowImageUploadModal(false)}
+                    className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                  >
+                    Dalej
+                  </Button>
                 </div>
               </div>
             </DialogContent>

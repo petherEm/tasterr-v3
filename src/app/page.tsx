@@ -1,6 +1,8 @@
 import { HeroSection } from "@/components/main/hero";
 import PublicSurveysSection from "@/components/surveys/public-surveys-section";
 
+export const revalidate = 60 // Revalidate every 60 seconds
+
 export default function Home() {
   return (
     <>

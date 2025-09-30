@@ -8,8 +8,53 @@ import {
   TrendingUp,
   MessageSquare,
 } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export function HeroSection() {
+  const [displayedText, setDisplayedText] = useState("");
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const texts = ["Twórz z nami rzeczywistość", "Rozwijaj FMCG"];
+
+  useEffect(() => {
+    let charIndex = 0;
+    let isDeleting = false;
+    let timeout: NodeJS.Timeout;
+
+    const type = () => {
+      const currentText = texts[currentTextIndex];
+
+      if (!isDeleting) {
+        // Typing
+        if (charIndex <= currentText.length) {
+          setDisplayedText(currentText.slice(0, charIndex));
+          charIndex++;
+          timeout = setTimeout(type, 80);
+        } else {
+          // Finished typing, wait then start deleting
+          timeout = setTimeout(() => {
+            isDeleting = true;
+            type();
+          }, 2000); // Pause at end of text
+        }
+      } else {
+        // Deleting
+        if (charIndex > 0) {
+          charIndex--;
+          setDisplayedText(currentText.slice(0, charIndex));
+          timeout = setTimeout(type, 40); // Faster delete speed
+        } else {
+          // Finished deleting, move to next text
+          isDeleting = false;
+          setCurrentTextIndex((prev) => (prev + 1) % texts.length);
+          timeout = setTimeout(type, 500); // Pause before typing next text
+        }
+      }
+    };
+
+    timeout = setTimeout(type, 500); // Initial delay
+
+    return () => clearTimeout(timeout);
+  }, [currentTextIndex]);
   return (
     <section className="relative h-[70vh] w-full overflow-hidden bg-black">
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -30,40 +75,25 @@ export function HeroSection() {
           <div className="flex-1 text-center lg:text-left space-y-6">
             <div className="space-y-3">
               <h1
-                className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight text-balance"
+                className="text-5xl md:text-5xl lg:text-7xl xl:text-6xl leading-tight font-black"
                 style={{
-                  fontWeight: 1000,
                   textShadow:
                     "0 0 20px rgba(255,255,255,0.3), 0 0 40px rgba(255,255,255,0.2)",
                   letterSpacing: "-0.02em",
+                  fontWeight: "900",
+                  minHeight: "1.2em",
                 }}
               >
-                <span
-                  className="text-white drop-shadow-lg"
-                  style={{ fontWeight: 1000 }}
-                >
-                  Podziel się
-                </span>
-                <br />
-                <span
-                  className="text-white drop-shadow-lg"
-                  style={{ fontWeight: 1000 }}
-                >
-                  Opinią
-                </span>
-                <br />
-                <span
-                  className="text-white drop-shadow-lg"
-                  style={{ fontWeight: 1000 }}
-                >
-                  Kształtuj Jutro
+                <span className="text-white drop-shadow-lg font-black">
+                  {displayedText}
+                  <span className="animate-pulse">|</span>
                 </span>
               </h1>
 
               <p className="text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl text-pretty leading-relaxed">
-                Weź udział w znaczących badaniach i pomóż kształtować przyszłość
-                produktów i usług. Twoje opinie mają znaczenie i napędzają prawdziwe
-                zmiany na świecie.
+                Masz wpływ na to, co znajdziesz jutro w sklepie. Twoje opinie
+                kształtują przyszłość produktów i usług, a każda odpowiedź
+                przyczynia się do realnych zmian.
               </p>
             </div>
 
@@ -88,10 +118,10 @@ export function HeroSection() {
               </Button>
             </div>
 
-            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-white/30">
+            <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/30">
               <div className="text-center lg:text-left">
                 <div className="text-2xl lg:text-3xl font-bold text-white">
-                  50K+
+                  5,000+
                 </div>
                 <div className="text-sm text-gray-300">Aktywni Uczestnicy</div>
               </div>
@@ -101,16 +131,10 @@ export function HeroSection() {
                 </div>
                 <div className="text-sm text-gray-300">Ukończone Ankiety</div>
               </div>
-              <div className="text-center lg:text-left">
-                <div className="text-2xl lg:text-3xl font-bold text-white">
-                  98%
-                </div>
-                <div className="text-sm text-gray-300">Wskaźnik Zadowolenia</div>
-              </div>
             </div>
           </div>
 
-          <div className="flex-1 relative">
+          <div className="flex-1 relative hidden lg:block">
             <div className="relative max-w-lg mx-auto">
               <div className="relative bg-gray-900/90 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-2xl">
                 <div className="absolute -top-4 -right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center">
@@ -126,9 +150,7 @@ export function HeroSection() {
                       <h3 className="font-semibold text-white">
                         Postęp Ankiet
                       </h3>
-                      <p className="text-sm text-gray-300">
-                        Śledź swój udział
-                      </p>
+                      <p className="text-sm text-gray-300">Śledź swój udział</p>
                     </div>
                   </div>
 
@@ -146,12 +168,8 @@ export function HeroSection() {
 
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-300">
-                        Badanie Rynkowe
-                      </span>
-                      <span className="text-white font-medium">
-                        W trakcie
-                      </span>
+                      <span className="text-gray-300">Badanie Rynkowe</span>
+                      <span className="text-white font-medium">W trakcie</span>
                     </div>
                     <div className="w-full bg-gray-700 rounded-full h-2">
                       <div className="bg-gradient-to-r from-white to-gray-200 h-2 rounded-full w-[60%]" />

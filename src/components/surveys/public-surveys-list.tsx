@@ -27,7 +27,8 @@ export default function PublicSurveysList({ surveys }: PublicSurveysListProps) {
             Brak dostępnych ankiet
           </h3>
           <p className="text-slate-600">
-            Sprawdź ponownie później w poszukiwaniu nowych możliwości badawczych.
+            Sprawdź ponownie później w poszukiwaniu nowych możliwości
+            badawczych.
           </p>
         </div>
       </div>
@@ -46,7 +47,10 @@ export default function PublicSurveysList({ surveys }: PublicSurveysListProps) {
         >
           <div className="relative h-48 overflow-hidden">
             <Image
-              src={survey.intro_image_url || "/placeholder.svg?height=200&width=400"}
+              src={
+                survey.intro_image_url ||
+                "/placeholder.svg?height=200&width=400"
+              }
               alt={survey.title}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -55,7 +59,7 @@ export default function PublicSurveysList({ surveys }: PublicSurveysListProps) {
             <div className="absolute top-4 right-4">
               <Badge className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0 shadow-lg">
                 <Users className="w-3 h-3 mr-1" />
-                {survey.response_count || 0} odpowiedzi
+                {survey.response_count || 0} wypełnionych
               </Badge>
             </div>
           </div>
@@ -85,7 +89,11 @@ export default function PublicSurveysList({ surveys }: PublicSurveysListProps) {
                     : "bg-gradient-to-r from-slate-400 to-slate-500 text-white border-0"
                 }
               >
-                {survey.status === "published" ? "opublikowana" : survey.status === "draft" ? "szkic" : survey.status}
+                {survey.status === "published"
+                  ? "popularna"
+                  : survey.status === "draft"
+                  ? "szkic"
+                  : survey.status}
               </Badge>
             </div>
 

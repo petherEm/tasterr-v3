@@ -26,9 +26,8 @@ export default function Footer() {
               />
             </div>
             <p className="text-slate-300 mb-6 max-w-md leading-relaxed">
-              Podziel się swoją opinią, zdobądź nagrody i pomóż kształtować
-              przyszłość poprzez znaczące ankiety. Dołącz do tysięcy
-              użytkowników, których opinie mają znaczenie.
+              Twoje zdanie kształtuje rynek. Weź udział w badaniach i dołącz do
+              tysięcy osób, które zmieniają przyszłość FMCG w Polsce.
             </p>
             <div className="flex space-x-4">
               <motion.div
@@ -118,7 +117,7 @@ export default function Footer() {
           className="border-t border-white/10 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center backdrop-blur-sm bg-white/5 rounded-lg px-6 py-4"
         >
           <p className="text-slate-300 text-sm">
-            © 2025 Touch. Wszelkie prawa zastrzeżone.
+            © 2025 Touchideas. Wszelkie prawa zastrzeżone.
           </p>
           <div className="flex items-center space-x-1 text-slate-300 text-sm mt-4 sm:mt-0">
             <span>Stworzone z</span>
@@ -129,7 +128,7 @@ export default function Footer() {
             >
               ❤️
             </motion.div>
-            <span>dla lepszych ankiet</span>
+            <span>for the better World.</span>
           </div>
         </motion.div>
       </div>

@@ -139,7 +139,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
 
       setChatMessages((prev) => {
         // Check if message already exists
-        const existingIndex = prev.findIndex(m => m.id === messageId);
+        const existingIndex = prev.findIndex((m) => m.id === messageId);
         if (existingIndex >= 0) {
           // Update existing message
           return prev.map((m) =>
@@ -486,13 +486,14 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
       "let's start",
       "ready",
       "yes",
-      "sure"
+      "sure",
     ];
 
-    const shouldStartSurvey = startPhrases.some(phrase =>
-      lowerQuestion.includes(phrase) ||
-      lowerQuestion === phrase ||
-      (phrase.length <= 3 && lowerQuestion === phrase) // Exact match for short phrases like "tak", "ok"
+    const shouldStartSurvey = startPhrases.some(
+      (phrase) =>
+        lowerQuestion.includes(phrase) ||
+        lowerQuestion === phrase ||
+        (phrase.length <= 3 && lowerQuestion === phrase) // Exact match for short phrases like "tak", "ok"
     );
 
     if (shouldStartSurvey) {
@@ -550,8 +551,8 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
             },
           ],
           currentQuestion: {
-            question_text: "Please answer the user's question about the survey",
-            question_subtitle: "Be helpful and friendly",
+            question_text: `Odpowiedz na pytanie użytkownika dotyczące ankiety "${survey.title}". Po odpowiedzi, zachęć go do rozpoczęcia ankiety mówiąc "Napisz 'rozpocznij' kiedy będziesz gotowy/a!". Ankieta ma ${survey.questions.length} pytań.`,
+            question_subtitle: "Bądź pomocny/a, przyjazny/a i zachęcający/a. Odpowiadaj TYLKO PO POLSKU.",
             isFirst: true,
             index: 0,
             total: survey.questions.length,
@@ -715,6 +716,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
   // Generate AI intro message
   const generateAiIntro = async () => {
     console.log("Generating AI intro message");
+    setChatMessages([]); // Clear chat messages before starting
     setIsTyping(true);
 
     try {
@@ -1365,7 +1367,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
         return (
           <Input
             type="number"
-            placeholder="Enter a number..."
+            placeholder="Wpisz liczbę..."
             {...form.register("currentAnswer")}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
@@ -1401,7 +1403,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
               }}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select an option" />
+                <SelectValue placeholder="Wybierz opcję" />
               </SelectTrigger>
               <SelectContent>
                 {selectOptions?.map((option: any, index: number) => (
@@ -1894,7 +1896,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                       type="text"
                       value={testQuestion}
                       onChange={(e) => setTestQuestion(e.target.value)}
-                      placeholder="Ask me anything..."
+                      placeholder="Zapytaj mnie o cokolwiek..."
                       className="flex-1 px-3 py-2.5 md:px-5 md:py-3.5 border border-gray-300 rounded-xl md:rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white shadow-sm text-sm md:text-base transition-all duration-200"
                       onKeyPress={(e) => {
                         if (e.key === "Enter" && !isTyping) {
@@ -1920,7 +1922,9 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                       }}
                       className="text-sm md:text-base border-2 border-gray-300 hover:border-indigo-300 hover:bg-indigo-50 rounded-xl md:rounded-2xl px-4 py-2 md:px-6 md:py-3 transition-all duration-200"
                     >
-                      <span className="hidden sm:inline">Pomiń Test i Rozpocznij Ankietę</span>
+                      <span className="hidden sm:inline">
+                        Pomiń Test i Rozpocznij Ankietę
+                      </span>
                       <span className="sm:hidden">Rozpocznij Ankietę</span>
                     </Button>
                   </div>
@@ -1957,10 +1961,10 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                     return (
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-semibold text-gray-700">
-                          Getting started...
+                          Rozpoczynamy...
                         </span>
                         <span className="text-xs text-gray-500">
-                          {survey.questions.length} questions
+                          {survey.questions.length} pytań
                         </span>
                       </div>
                     );
@@ -1972,10 +1976,10 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                         <span className="text-xs font-semibold text-gray-700">
                           {currentCategory
                             ? `${currentCategory.name}`
-                            : "Survey Progress"}
+                            : "Postęp ankiety"}
                         </span>
                         <span className="text-xs text-gray-500">
-                          {currentStep + 1} of {survey.questions.length}
+                          {currentStep + 1} z {survey.questions.length}
                         </span>
                       </div>
 
@@ -2017,7 +2021,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                             className="flex-1 h-1"
                           />
                           <span className="text-xs text-gray-400 min-w-[3rem]">
-                            Overall{" "}
+                            Postęp{" "}
                             {currentStep >= 0
                               ? Math.round(
                                   ((currentStep + 1) /
@@ -2043,233 +2047,247 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
               style={{ scrollBehavior: "smooth" }}
             >
               <AnimatePresence mode="popLayout">
-                {chatMessages.map((message) => (
-                  <motion.div
-                    key={message.id}
-                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className={`flex ${
-                      message.role === "user" ? "justify-end" : "justify-start"
-                    }`}
-                  >
-                    <div
-                      className={`flex items-start gap-2 md:gap-3 max-w-[90%] md:max-w-[85%] ${
-                        message.role === "user" ? "flex-row-reverse" : ""
+                {chatMessages
+                  .filter((message) => message.content.trim())
+                  .map((message) => (
+                    <motion.div
+                      key={message.id}
+                      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      className={`flex ${
+                        message.role === "user"
+                          ? "justify-end"
+                          : "justify-start"
                       }`}
                     >
-                      <motion.div
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{ delay: 0.2, type: "spring" }}
-                        className={`w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${
-                          message.role === "user"
-                            ? "bg-gradient-to-br from-indigo-500 to-purple-600"
-                            : "bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200"
+                      <div
+                        className={`flex items-start gap-2 md:gap-3 max-w-[90%] md:max-w-[85%] ${
+                          message.role === "user" ? "flex-row-reverse" : ""
                         }`}
                       >
-                        {message.role === "user" ? (
-                          <User className="w-4 h-4 md:w-5 md:h-5 text-white" />
-                        ) : (
-                          <Bot className="w-4 h-4 md:w-5 md:h-5 text-indigo-500" />
-                        )}
-                      </motion.div>
-
-                      <div className="flex flex-col min-w-0 flex-1">
                         <motion.div
-                          initial={{
-                            opacity: 0,
-                            x: message.role === "user" ? 20 : -20,
-                          }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.3 }}
-                          className={`rounded-2xl md:rounded-3xl px-3 py-2.5 md:px-5 md:py-3.5 shadow-lg ${
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ delay: 0.2, type: "spring" }}
+                          className={`w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${
                             message.role === "user"
-                              ? "bg-gradient-to-br from-indigo-500 to-purple-600 text-white"
-                              : message.isQuestion
-                              ? "bg-gradient-to-br from-white to-indigo-50 border-2 border-indigo-200 text-gray-900"
-                              : "bg-white border border-gray-200 text-gray-800 shadow-lg"
+                              ? "bg-gradient-to-br from-indigo-500 to-purple-600"
+                              : "bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200"
                           }`}
                         >
-                          {message.isQuestion && (
-                            <motion.div
-                              initial={{ opacity: 0, y: -10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.4 }}
-                              className="flex items-center gap-2 mb-2 md:mb-3"
-                            >
-                              <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full animate-pulse"></div>
-                              <span className="text-xs md:text-sm font-bold text-indigo-600 uppercase tracking-wider">
-                                Question {(message.questionIndex || 0) + 1}
-                              </span>
-                            </motion.div>
-                          )}
-
-                          <p
-                            className={`leading-relaxed ${
-                              message.isQuestion
-                                ? "font-semibold text-base md:text-lg"
-                                : "text-sm md:text-base"
-                            }`}
-                          >
-                            {message.content}
-                          </p>
-
-                          {/* Enhanced media display */}
-                          {message.media && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.5 }}
-                              className="mt-6"
-                            >
-                              {message.media.type === "images" &&
-                                message.media.images && (
-                                  <div className="space-y-4">
-                                    {message.media.images.map((img, index) => (
-                                      <motion.div
-                                        key={index}
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 0.1 * index }}
-                                        className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 border border-gray-200 shadow-lg"
-                                      >
-                                        <div
-                                          className="relative group cursor-pointer overflow-hidden rounded-xl"
-                                          onClick={() =>
-                                            setSelectedImage({
-                                              url:
-                                                img.url || "/placeholder.svg",
-                                              alt:
-                                                img.fileName ||
-                                                `Przesłane zdjęcie ${
-                                                  index + 1
-                                                }`,
-                                              comment: img.comment,
-                                            })
-                                          }
-                                        >
-                                          <img
-                                            src={img.url || "/placeholder.svg"}
-                                            alt={
-                                              img.fileName ||
-                                              `Przesłane zdjęcie ${index + 1}`
-                                            }
-                                            className="w-full max-w-sm h-56 object-cover shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
-                                          />
-                                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                                            <div className="bg-white/90 backdrop-blur-sm rounded-full p-3 transform scale-75 group-hover:scale-100 transition-transform duration-300">
-                                              <Expand className="w-6 h-6 text-gray-700" />
-                                            </div>
-                                          </div>
-                                        </div>
-                                        {img.comment && (
-                                          <div className="mt-4 text-base text-gray-700 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 border border-indigo-100">
-                                            <span className="font-semibold text-indigo-600 flex items-center gap-2">
-                                              <MessageCircle className="w-4 h-4" />
-                                              Comment:
-                                            </span>
-                                            <p className="mt-2">
-                                              {img.comment}
-                                            </p>
-                                          </div>
-                                        )}
-                                      </motion.div>
-                                    ))}
-                                  </div>
-                                )}
-
-                              {/* Enhanced question images display */}
-                              {message.media.type === "question_images" &&
-                                message.media.questionImages && (
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
-                                    {message.media.questionImages.map(
-                                      (img, index) => (
-                                        <motion.div
-                                          key={index}
-                                          initial={{ opacity: 0, y: 20 }}
-                                          animate={{ opacity: 1, y: 0 }}
-                                          transition={{ delay: 0.1 * index }}
-                                          className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
-                                        >
-                                          <div
-                                            className="relative group cursor-pointer"
-                                            onClick={() =>
-                                              setSelectedImage({
-                                                url:
-                                                  img.url || "/placeholder.svg",
-                                                alt: img.alt,
-                                                comment: img.textPrompt,
-                                              })
-                                            }
-                                          >
-                                            <img
-                                              src={
-                                                img.url || "/placeholder.svg"
-                                              }
-                                              alt={img.alt}
-                                              className="w-full h-48 object-cover transition-all duration-300 group-hover:scale-105"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                                              <div className="bg-white/90 backdrop-blur-sm rounded-full p-3 transform scale-75 group-hover:scale-100 transition-transform duration-300">
-                                                <Expand className="w-5 h-5 text-gray-700" />
-                                              </div>
-                                            </div>
-                                          </div>
-                                          {img.textPrompt && (
-                                            <div className="p-4 text-sm text-gray-600 bg-gradient-to-r from-indigo-50 to-purple-50 border-t border-gray-100">
-                                              {img.textPrompt}
-                                            </div>
-                                          )}
-                                        </motion.div>
-                                      )
-                                    )}
-                                  </div>
-                                )}
-
-                              {message.media.type === "image_comments" &&
-                                message.media.comments && (
-                                  <div className="space-y-3 mt-6">
-                                    {message.media.comments.map(
-                                      ([imageId, comment], index) => (
-                                        <motion.div
-                                          key={index}
-                                          initial={{ opacity: 0, x: -20 }}
-                                          animate={{ opacity: 1, x: 0 }}
-                                          transition={{ delay: 0.1 * index }}
-                                          className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 text-base border border-indigo-100"
-                                        >
-                                          <span className="font-semibold text-indigo-600 flex items-center gap-2">
-                                            <Camera className="w-4 h-4" />
-                                            Image {index + 1}:
-                                          </span>
-                                          <p className="mt-2 text-gray-700">
-                                            {comment}
-                                          </p>
-                                        </motion.div>
-                                      )
-                                    )}
-                                  </div>
-                                )}
-                            </motion.div>
+                          {message.role === "user" ? (
+                            <User className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                          ) : (
+                            <Bot className="w-4 h-4 md:w-5 md:h-5 text-indigo-500" />
                           )}
                         </motion.div>
 
-                        <div
-                          className={`text-xs md:text-sm text-gray-400 mt-1.5 md:mt-2 px-1 ${
-                            message.role === "user" ? "text-right" : "text-left"
-                          }`}
-                        >
-                          {message.timestamp.toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
+                        <div className="flex flex-col min-w-0 flex-1">
+                          <motion.div
+                            initial={{
+                              opacity: 0,
+                              x: message.role === "user" ? 20 : -20,
+                            }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className={`rounded-2xl md:rounded-3xl px-3 py-2.5 md:px-5 md:py-3.5 shadow-lg ${
+                              message.role === "user"
+                                ? "bg-gradient-to-br from-indigo-500 to-purple-600 text-white"
+                                : message.isQuestion
+                                ? "bg-gradient-to-br from-white to-indigo-50 border-2 border-indigo-200 text-gray-900"
+                                : "bg-white border border-gray-200 text-gray-800 shadow-lg"
+                            }`}
+                          >
+                            {message.isQuestion && (
+                              <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 }}
+                                className="flex items-center gap-2 mb-2 md:mb-3"
+                              >
+                                <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full animate-pulse"></div>
+                                <span className="text-xs md:text-sm font-bold text-indigo-600 uppercase tracking-wider">
+                                  Pytanie {(message.questionIndex || 0) + 1}
+                                </span>
+                              </motion.div>
+                            )}
+
+                            <p
+                              className={`leading-relaxed ${
+                                message.isQuestion
+                                  ? "font-semibold text-base md:text-lg"
+                                  : "text-sm md:text-base"
+                              }`}
+                            >
+                              {message.content}
+                            </p>
+
+                            {/* Enhanced media display */}
+                            {message.media && (
+                              <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                                className="mt-6"
+                              >
+                                {message.media.type === "images" &&
+                                  message.media.images && (
+                                    <div className="space-y-4">
+                                      {message.media.images.map(
+                                        (img, index) => (
+                                          <motion.div
+                                            key={index}
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 0.1 * index }}
+                                            className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 border border-gray-200 shadow-lg"
+                                          >
+                                            <div
+                                              className="relative group cursor-pointer overflow-hidden rounded-xl"
+                                              onClick={() =>
+                                                setSelectedImage({
+                                                  url:
+                                                    img.url ||
+                                                    "/placeholder.svg",
+                                                  alt:
+                                                    img.fileName ||
+                                                    `Przesłane zdjęcie ${
+                                                      index + 1
+                                                    }`,
+                                                  comment: img.comment,
+                                                })
+                                              }
+                                            >
+                                              <img
+                                                src={
+                                                  img.url || "/placeholder.svg"
+                                                }
+                                                alt={
+                                                  img.fileName ||
+                                                  `Przesłane zdjęcie ${
+                                                    index + 1
+                                                  }`
+                                                }
+                                                className="w-full max-w-sm h-56 object-cover shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+                                              />
+                                              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                                                <div className="bg-white/90 backdrop-blur-sm rounded-full p-3 transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                                  <Expand className="w-6 h-6 text-gray-700" />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            {img.comment && (
+                                              <div className="mt-4 text-base text-gray-700 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 border border-indigo-100">
+                                                <span className="font-semibold text-indigo-600 flex items-center gap-2">
+                                                  <MessageCircle className="w-4 h-4" />
+                                                  Comment:
+                                                </span>
+                                                <p className="mt-2">
+                                                  {img.comment}
+                                                </p>
+                                              </div>
+                                            )}
+                                          </motion.div>
+                                        )
+                                      )}
+                                    </div>
+                                  )}
+
+                                {/* Enhanced question images display */}
+                                {message.media.type === "question_images" &&
+                                  message.media.questionImages && (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+                                      {message.media.questionImages.map(
+                                        (img, index) => (
+                                          <motion.div
+                                            key={index}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.1 * index }}
+                                            className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                                          >
+                                            <div
+                                              className="relative group cursor-pointer"
+                                              onClick={() =>
+                                                setSelectedImage({
+                                                  url:
+                                                    img.url ||
+                                                    "/placeholder.svg",
+                                                  alt: img.alt,
+                                                  comment: img.textPrompt,
+                                                })
+                                              }
+                                            >
+                                              <img
+                                                src={
+                                                  img.url || "/placeholder.svg"
+                                                }
+                                                alt={img.alt}
+                                                className="w-full h-48 object-cover transition-all duration-300 group-hover:scale-105"
+                                              />
+                                              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                                                <div className="bg-white/90 backdrop-blur-sm rounded-full p-3 transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                                  <Expand className="w-5 h-5 text-gray-700" />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            {img.textPrompt && (
+                                              <div className="p-4 text-sm text-gray-600 bg-gradient-to-r from-indigo-50 to-purple-50 border-t border-gray-100">
+                                                {img.textPrompt}
+                                              </div>
+                                            )}
+                                          </motion.div>
+                                        )
+                                      )}
+                                    </div>
+                                  )}
+
+                                {message.media.type === "image_comments" &&
+                                  message.media.comments && (
+                                    <div className="space-y-3 mt-6">
+                                      {message.media.comments.map(
+                                        ([imageId, comment], index) => (
+                                          <motion.div
+                                            key={index}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.1 * index }}
+                                            className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 text-base border border-indigo-100"
+                                          >
+                                            <span className="font-semibold text-indigo-600 flex items-center gap-2">
+                                              <Camera className="w-4 h-4" />
+                                              Image {index + 1}:
+                                            </span>
+                                            <p className="mt-2 text-gray-700">
+                                              {comment}
+                                            </p>
+                                          </motion.div>
+                                        )
+                                      )}
+                                    </div>
+                                  )}
+                              </motion.div>
+                            )}
+                          </motion.div>
+
+                          <div
+                            className={`text-xs md:text-sm text-gray-400 mt-1.5 md:mt-2 px-1 ${
+                              message.role === "user"
+                                ? "text-right"
+                                : "text-left"
+                            }`}
+                          >
+                            {message.timestamp.toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  ))}
 
                 {/* Enhanced typing indicator */}
                 {(isTyping || isAiLoading) && (
@@ -2348,7 +2366,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                         >
                           <p className="text-sm md:text-base text-blue-800 mb-3 md:mb-4 font-semibold flex items-center gap-2">
                             <Bot className="w-4 h-4 md:w-5 md:h-5" />
-                            What would you like to do next?
+                            Co chcesz zrobić dalej?
                           </p>
                           <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
                             <Button
@@ -2368,7 +2386,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                               disabled={isSubmitting}
                             >
                               <Send className="w-5 h-5 mr-2" />
-                              Continue to next question
+                              Przejdź do następnego pytania
                             </Button>
                           </div>
                         </motion.div>
@@ -2428,8 +2446,10 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                             className="hidden sm:flex text-sm md:text-base text-green-600 items-center gap-2 bg-green-50 px-2 md:px-3 py-1.5 md:py-2 rounded-lg md:rounded-xl border border-green-200"
                           >
                             <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="hidden md:inline">Ready to continue</span>
-                            <span className="md:hidden">Ready</span>
+                            <span className="hidden md:inline">
+                              Gotowe do kontynuacji
+                            </span>
+                            <span className="md:hidden">Gotowe</span>
                           </motion.span>
                         )}
 
@@ -2443,13 +2463,15 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
                             {isSubmitting ? (
                               <>
                                 <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin mr-1.5 md:mr-2" />
-                                <span className="hidden sm:inline">Wysyłanie...</span>
+                                <span className="hidden sm:inline">
+                                  Wysyłanie...
+                                </span>
                                 <span className="sm:hidden">...</span>
                               </>
                             ) : (
                               <>
                                 <Send className="w-4 h-4 md:w-5 md:h-5 mr-1.5 md:mr-2" />
-                                <span>Continue</span>
+                                <span>Kontynuuj</span>
                               </>
                             )}
                           </Button>
@@ -2488,7 +2510,7 @@ export function ConversationalSurvey({ survey }: ConversationalSurveyProps) {
               <DialogHeader className="p-6 pb-4 border-b border-gray-100 shrink-0">
                 <DialogTitle className="text-xl font-bold text-gray-800 flex items-center gap-2">
                   <Camera className="w-6 h-6 text-indigo-500" />
-                  Upload & Comment on Images
+                  Prześlij i skomentuj zdjęcia
                 </DialogTitle>
               </DialogHeader>
 
